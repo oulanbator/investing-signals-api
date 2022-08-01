@@ -1,4 +1,5 @@
 from services import registry, signal
+from utilities import utils
 from flask import Flask
 from flask_cors import CORS
 
@@ -22,6 +23,11 @@ def getEvents():
 @app.route("/getRegistry")
 def getRegistry():
     return registry.loadRegistry()
+
+# Route pour obtenir l'heure du serveur
+@app.route("/getTime")
+def getTime():
+    return utils.getTimeNow()
 
 
 if __name__ == "__main__":
