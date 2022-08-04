@@ -1,6 +1,6 @@
 import datetime, os, json
 from utilities import constants, utils
-from services import scrapper
+from services import scrapper, settings
 
 def canTrade():
     DATA = constants.DATA_FILE
@@ -33,10 +33,14 @@ def canTrade():
     return canTakeOrders
 
 def compareWithCurentTime(event):
+        decalageValue = settings.getSetting(constants.DECALAGE_HORAIRE)
+
         event_hour = event['time'].split(':')[0]
         event_minute = event['time'].split(':')[1]
 
-        nowDateTime = datetime.datetime.now()
+        # On modifie l'heure serveur avec le décalage horaire enregistré
+        nowDateTime = datetime.datetime.now() + datetime.timedelta(hours=decalageValue)
+
         eventDateTime = datetime.datetime(nowDateTime.year, nowDateTime.month, nowDateTime.day, int(event_hour), int(event_minute), 0)
 
         return (nowDateTime - eventDateTime)

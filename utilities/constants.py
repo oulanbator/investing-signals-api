@@ -7,6 +7,9 @@ HEADERS = {
 }
 
 DATA_FILE = "data/daily_events.json"
-
 REGISTRY = "data/registry.json"
+SETTINGS = "data/settings.json"
+
+
+DECALAGE_HORAIRE = "decalage-horaire"
 

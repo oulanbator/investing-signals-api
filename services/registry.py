@@ -13,7 +13,7 @@ def addEntry(action):
     createRegistryIfNeeded()
     
     # Load registry
-    registry = loadRegistry()
+    registry = utils.loadJsonDict(PATH)
 
     # Update registry
     newEntry = {
@@ -26,9 +26,7 @@ def addEntry(action):
     registry.update(newEntry)
 
     # Save registry
-    with open(PATH, 'w') as output:
-        json.dump(registry, output, indent=4)
-        print('registry.addEntry :: Registry updated !')
+    utils.saveJsonDict(registry, PATH, "Registry updated")
 
 
 def createRegistryIfNeeded():
@@ -46,9 +44,3 @@ def deleteRegistry():
     if file_exists:
         os.remove(PATH)
         print('registry.deleteRegistry :: Registry deleted !')
-
-def loadRegistry():
-    PATH = constants.REGISTRY
-    with open(PATH) as json_file:
-        registry = json.load(json_file)
-        return registry

@@ -1,6 +1,6 @@
-from services import registry, signal
-from utilities import utils
-from flask import Flask
+from services import registry, signal, settings
+from utilities import constants, utils
+from flask import Flask, request
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -25,10 +25,27 @@ def getRegistry():
     return registry.loadRegistry()
 
 # Route pour obtenir l'heure du serveur
-@app.route("/getTime")
-def getTime():
+@app.route("/getServerTime")
+def getServerTime():
     return utils.getTimeNow()
 
+# Route pour obtenir l'heure modifiée avec décalage horaire
+@app.route("/getModifiedTime")
+def getModifiedTime():
+    return utils.getModifiedTimeNow()
+
+# Route pour définir le décalage horaire
+@app.route("/setDecalage")
+def setDecalage():
+    key = constants.DECALAGE_HORAIRE
+    value = request.args.get("value")
+    if (value.isnumeric()):
+        settings.addSetting(key, int(value))
+        return "Décalage mis à jour"
+    else:
+        return "Erreur : mauvaise valeur ?"
+
+    
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
