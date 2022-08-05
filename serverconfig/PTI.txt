@@ -1,0 +1,11 @@
+yum install gcc, uwsgi, ...
+
+Création d'un service INVESTING dans /etc/systemd/system/investing.service
+Ce service s'appuie sur le fichier investing.ini et fait tourner un serveur uwsgi
+communique avec nginx via myproject.sock
+
+Configuration de Nginx pour rediriger toutes les requêtes vers notre socket.
+Check nginx.conf
+
+
+Restart les services, etc...
