@@ -22,7 +22,8 @@ def getEvents():
 # Route pour pouvoir lire le registre
 @app.route("/getRegistry")
 def getRegistry():
-    return registry.loadRegistry()
+    PATH = constants.REGISTRY
+    return utils.loadJsonDict(PATH)
 
 # Route pour obtenir l'heure du serveur
 @app.route("/getServerTime")
